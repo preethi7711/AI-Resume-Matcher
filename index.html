@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>AI Resume Matcher</title>
+<link rel="stylesheet" href="style.css" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+</head>
+
+<body>
+
+<div class="main">
+  <div class="card">
+
+    <h1>AI Resume & Job Matcher</h1>
+    <p class="subtitle">Smart Resume Analysis & Skill Matching</p>
+
+    <label class="upload">
+      Upload Resume PDF
+      <input type="file" id="pdfUpload" accept="application/pdf" hidden>
+    </label>
+
+    <textarea id="resume" placeholder="Or paste resume text..."></textarea>
+    <textarea id="job" placeholder="Paste job description..."></textarea>
+
+    <button onclick="match()">Match Resume</button>
+
+    <!-- RESULT AREA -->
+    <div id="result" class="result"></div>
+
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
