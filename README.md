@@ -26,42 +26,15 @@ Features
 Tech Stack
 
 Frontend
-
-HTML
-
-CSS
-
-JavaScript
-
-jsPDF
-
-PDF.js
+HTML,CSS,JavaScript,jsPDF,PDF.js
 
 Backend
-
-Python
-
-Flask
-
-Flask-CORS
-
-SQLite
+Python,Flask,Flask-CORS,SQLite
 
 AI
-
 Ollama
-
 Llama 3 / Phi-3 Models
 
-Project Structure
-AI-Resume-Matcher/
-│
-├── index.html
-├── style.css
-├── script.js
-├── app.py
-├── data.db (auto-generated)
-└── README.md
 
 Installation & Setup
 1. Clone Project
@@ -81,11 +54,6 @@ https://ollama.com/download
 Pull AI Model
 ollama pull llama3
 
-
-Optional (lighter model for slower laptops):
-
-ollama pull phi3
-
 Running the Application
 Start Backend
 python app.py
@@ -100,26 +68,3 @@ Start Frontend
 Open index.html using Live Server in VS Code
 or simply double-click the file.
 
-Usage Flow
-
-Upload or paste resume
-
-Paste job description
-
-Click Match Resume
-
-Click Get AI Feedback
-
-Download AI Career Report PDF
-
-View saved resumes anytime
-
-PDF Report Includes
-
-Match Score %
-
-Matched Skills
-
-Missing Skills
-
-AI Feedback Suggestions
