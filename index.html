@@ -5,7 +5,11 @@
 <title>AI Resume Matcher</title>
 <link rel="stylesheet" href="style.css" />
 
+<!-- PDF Reader -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+
+<!-- PDF Generator -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
 
 <body>
@@ -14,20 +18,22 @@
   <div class="card">
 
     <h1>AI Resume & Job Matcher</h1>
-    <p class="subtitle">Smart Resume Analysis & Skill Matching</p>
+    <p class="subtitle">Smart Resume Analysis & Feedback</p>
 
     <label class="upload">
       Upload Resume PDF
       <input type="file" id="pdfUpload" accept="application/pdf" hidden>
     </label>
 
-    <textarea id="resume" placeholder="Or paste resume text..."></textarea>
-    <textarea id="job" placeholder="Paste job description..."></textarea>
+    <textarea id="resume" placeholder="Paste Resume Text..."></textarea>
+    <textarea id="job" placeholder="Paste Job Description..."></textarea>
 
     <button onclick="match()">Match Resume</button>
+    <button onclick="generateReport()">Generate Feedback Report</button>
+    <button onclick="loadResumes()">View Saved Resumes</button>
 
-    <!-- RESULT AREA -->
-    <div id="result" class="result"></div>
+    <div id="result"></div>
+    <div id="resumeHistory"></div>
 
   </div>
 </div>

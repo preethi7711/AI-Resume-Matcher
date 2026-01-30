@@ -5,57 +5,36 @@ import sqlite3
 app = Flask(__name__)
 CORS(app)
 
-DB_NAME = "data.db"
-
-# ---------- INIT DATABASE ----------
 def init_db():
-    conn = sqlite3.connect(DB_NAME)
+    conn = sqlite3.connect("data.db")
     c = conn.cursor()
-    c.execute("""
-        CREATE TABLE IF NOT EXISTS resumes (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            text TEXT
-        )
-    """)
+    c.execute("CREATE TABLE IF NOT EXISTS resumes (id INTEGER PRIMARY KEY, text TEXT)")
     conn.commit()
     conn.close()
 
-# ---------- HOME ROUTE ----------
 @app.route("/")
 def home():
-    return "Backend Running Successfully 🚀"
+    return "Backend Running"
 
-# ---------- SAVE RESUME ----------
 @app.route("/save", methods=["POST"])
 def save_resume():
-    try:
-        data = request.get_json()
-        text = data.get("text", "")
+    text = request.json["text"]
+    conn = sqlite3.connect("data.db")
+    c = conn.cursor()
+    c.execute("INSERT INTO resumes(text) VALUES (?)", (text,))
+    conn.commit()
+    conn.close()
+    return jsonify({"status":"saved"})
 
-        conn = sqlite3.connect(DB_NAME)
-        c = conn.cursor()
-        c.execute("INSERT INTO resumes (text) VALUES (?)", (text,))
-        conn.commit()
-        conn.close()
-
-        return jsonify({"status": "saved"}), 200
-
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
-
-# ---------- VIEW ALL RESUMES ----------
-@app.route("/resumes", methods=["GET"])
+@app.route("/resumes")
 def get_resumes():
-    conn = sqlite3.connect(DB_NAME)
+    conn = sqlite3.connect("data.db")
     c = conn.cursor()
     c.execute("SELECT * FROM resumes")
     rows = c.fetchall()
     conn.close()
+    return jsonify([{"id":r[0],"text":r[1]} for r in rows])
 
-    data = [{"id": r[0], "text": r[1]} for r in rows]
-    return jsonify(data)
-
-# ---------- RUN SERVER ----------
 if __name__ == "__main__":
     init_db()
-    app.run(debug=True, port=5000)
+    app.run(debug=True)
