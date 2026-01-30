@@ -1,7 +1,4 @@
-* {
-  box-sizing: border-box;
-  font-family: 'Segoe UI', sans-serif;
-}
+* { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
 
 body {
   margin: 0;
@@ -9,12 +6,7 @@ body {
   color: white;
 }
 
-.main {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-}
+.main { display: flex; justify-content: center; align-items: center; min-height: 100vh; }
 
 .card {
   width: 650px;
@@ -60,4 +52,10 @@ button {
   padding: 15px;
   border-radius: 12px;
   margin-top: 10px;
+}
+body {
+  margin: 0;
+  background: url("https://manage.collnod.com/Upload/Content/web_img_3_16_12_2024_14_26_36.png") no-repeat center center fixed;
+  background-size: cover;
+  color: white;
 }

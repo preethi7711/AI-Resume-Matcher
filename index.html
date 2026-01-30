@@ -18,21 +18,24 @@
   <div class="card">
 
     <h1>AI Resume & Job Matcher</h1>
-    <p class="subtitle">Smart Resume Analysis & Feedback</p>
 
     <label class="upload">
       Upload Resume PDF
       <input type="file" id="pdfUpload" accept="application/pdf" hidden>
     </label>
-
+    <h3>Resume:</h3>
     <textarea id="resume" placeholder="Paste Resume Text..."></textarea>
+    <h3>Job Description:</h3>
     <textarea id="job" placeholder="Paste Job Description..."></textarea>
 
     <button onclick="match()">Match Resume</button>
-    <button onclick="generateReport()">Generate Feedback Report</button>
+    <button onclick="generateReport()">Generate Match Report</button>
+    <button onclick="getAIFeedback()">Get AI Feedback</button>
+    <button onclick="downloadAIFeedback()">Download AI Career Report</button>
     <button onclick="loadResumes()">View Saved Resumes</button>
 
     <div id="result"></div>
+    <div id="aiBox"></div>
     <div id="resumeHistory"></div>
 
   </div>
