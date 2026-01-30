@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import sqlite3
-import requests
+import subprocess
 
 app = Flask(__name__)
 CORS(app)
@@ -55,46 +55,30 @@ def get_resumes():
     data = [{"id": r[0], "text": r[1]} for r in rows]
     return jsonify(data)
 
-# ---------------- AI FEEDBACK ----------------
-OPENROUTER_API_KEY = "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"
-
+# ---------------- AI FEEDBACK (OLLAMA) ----------------
 @app.route("/ai-feedback", methods=["POST"])
 def ai_feedback():
     try:
-        text = request.json["text"]
+        text = request.json["text"][:1500]  # limit length
 
         prompt = f"""
-Give resume feedback in clean bullet points.
-No markdown. No emojis.
-Sections:
-- Strengths
-- Missing Skills
-- Improvements
+Give short resume feedback in 5 clean bullet points.
+No emojis. No markdown.
 
 Resume:
 {text}
 """
 
-        response = requests.post(
-            url="https://openrouter.ai/api/v1/chat/completions",
-            headers={
-                "Authorization": f"Bearer {OPENROUTER_API_KEY}",
-                "Content-Type": "application/json"
-            },
-            json={
-                "model": "mistralai/mistral-7b-instruct",
-                "messages": [
-                    {"role": "system", "content": "You are a professional resume coach."},
-                    {"role": "user", "content": prompt}
-                ]
-            },
-            timeout=30
+        result = subprocess.run(
+            ["ollama", "run", "llama3", prompt],
+            capture_output=True,
+            text=True
         )
 
-        data = response.json()
+        feedback = result.stdout.strip()
 
-        # Safe extraction
-        feedback = data.get("choices", [{}])[0].get("message", {}).get("content", "No feedback generated.")
+        if not feedback:
+            feedback = "AI did not return feedback."
 
         return jsonify({"feedback": feedback})
 
